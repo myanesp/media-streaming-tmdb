@@ -1,5 +1,5 @@
 # Data Harvesting Project
-Mario Yanes ([@myanesp](https://github.com/myanesp)) and Isabela Zeberio ([@isazeberio](https://github.com/isazeberio)
+Mario Yanes ([@myanesp](https://github.com/myanesp)) and Isabela Zeberio ([@isazeberio](https://github.com/isazeberio))
 
 ## How to replicate
 
