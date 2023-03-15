@@ -9,6 +9,8 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
+## Data Harvesting of The Movie Database  
+
 ```{r message=FALSE}
 library(httr2)
 library(tidyverse)
@@ -167,8 +169,8 @@ ggplotly(tr_week, tooltip = c("y", "text", "fill")) %>%
 
 Movie genre is a very interesting variable for analyzing films and series. When we scrap the TMDB API what we get as genre is a numerical code. To make easier the task of analyzing and understanding this data, we have decided to create tow functions to recode these numbers to the genre categories they correspond to:
 
--   A matrix equivalence of genres ids and genres names for movies &rarr; `get_movie_genres()`
--   A matrix equivalence of genres ids and genres names for TV shows &rarr; `get_tv_genres()`
+-   A matrix equivalence of genres ids and genres names for movies → `get_movie_genres()`
+-   A matrix equivalence of genres ids and genres names for TV shows → `get_tv_genres()`
 
 ```{r}
 get_movie_genres()
@@ -286,6 +288,7 @@ day %>%
   transform_genres()
 
 ```
+
 With the functiom `get_streaming_df()` you can add the streaming providers for media in an existing dataframe. Thus, if you have a cool dataframe with information about movies and TV shows, you can complement it with the place where the content is available (currently, for USA and Spain). This information if obtained through JustWatch.
 
 ```{r}
@@ -293,6 +296,7 @@ day %>% get_streaming_df()
 
 day %>% transform_genres()
 ```
+
 With the id of the media we can check whether the content we want to watch is available and in which country.
 
 ```{r}
@@ -302,7 +306,8 @@ get_streaming_providers(238, "movie", "ES")
 get_streaming_providers(13, "movie", "AR")
 
 ```
-So far, the information we have had about the films and series consist on: 
+
+So far, the information we have had about the films and series consist on:
 
 -   The title
 -   The genre(s)
@@ -316,7 +321,6 @@ So far, the information we have had about the films and series consist on:
 -   The media type: tv or movie
 -   The streaming platform where the media content is available for the US and Spain
 
-
 In the case that this information is not sufficient with the function or it does not answer to your media cuiosity, we created the function `get_detailes()` with which many more details like the revenue or the cast of the media can be requested.
 
 ```{r}
@@ -324,6 +328,7 @@ get_details(238, "movie", "budget")
 top_rated_movies %>% add_detail(c("revenue", "budget"))
 
 ```
+
 ```{r}
 movie_profits <- movies_genres %>% add_detail(c("revenue", "budget"))
 movie_profits <-  movie_profits %>% mutate(profits = 
@@ -363,7 +368,6 @@ ggplotly(budget_profits, tooltip = c("y", "text", "x", "color", "size")) %>%
   coord_flip() + 
   theme_minimal()
 ```
-
 
 We can see the which concatenation of movie genres is the most popular calculating the averafe vote count by movie genre.
 
@@ -409,11 +413,12 @@ search_tmdb("encanto")
 
 ```
 
-
 ## Limitations
+
 As reported on the final project, the Selenium part was painful to do. Sometimes it doesn't start, but right after it does, but then stop to recognize commands. Besides that, we want to mantain the code that we would use to extract the ids of the top rated movies filtered by year.
 
 ### Bonus: exploring popular movies and tv shows by year
+
 To extract the top rated movies or tv shows specifying the year (instead of all time), we wanted to have the ability of selecting a given year to surf another list of top rated media. For that, we have to use RSelenium, so we load the library.
 
 ```{r eval=FALSE, include=FALSE}
@@ -499,3 +504,9 @@ top_rated_year <- function(year, type) {
 }
 
 ```
+
+## Summary
+
+Visual summary of package creation and Selenium
+
+![](summary.jpg)
