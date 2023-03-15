@@ -1,5 +1,5 @@
 # Data Harvesting Project
-## Mario Yanes (@myanesp) and Isabela Zeberio (@isazeberio)
+Mario Yanes (@myanesp) and Isabela Zeberio (@isazeberio)
 
 ## How to replicate
 
