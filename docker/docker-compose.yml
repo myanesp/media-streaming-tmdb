@@ -1,28 +1,8 @@
-version: "3"
- 2 services:
- 3   firefox:
- 4     image: selenium/node-firefox:4.7.2-20221219
- 5     depends_on:
- 6      - selenium-hub
- 7     shm_size: 2gb
- 8     environment:
- 9       - SE_EVENT_BUS_HOST=selenium-hub
-10       - SE_EVENT_BUS_PUBLISH_PORT=4442
-11       - SE_EVENT_BUS_SUBSCRIBE_PORT=4443
-12       - SE_NODE_MAX_SESSIONS=4
-13       - SE_SCREEN_WIDTH=1600
-14       - SE_SCREEN_HEIGHT=900
-15       - SE_NODE_OVERRIDE_MAX_SESSIONS=true
-16
-17   selenium-hub:
-18     image: selenium/hub:4.7.2-20221219
-19     container_name: selenium-hub
-20     ports:
-21       - "4442:4442"
-22       - "4443:4443"
-23       - "4444:4444"
-24
-25 networks:
-26   default:
-27     external: true
-28     name: lan
+version: '3.3'
+services:
+  standalone-firefox:
+     container_name: firefox
+     ports:
+        - '4445:4444'
+     image: selenium/standalone-firefox
+
