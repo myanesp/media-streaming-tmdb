@@ -1,17 +1,8 @@
----
-title: "Obtaining and transforming data from The Movie Database with its API and Selenium"
-author: "Mario Yanes and Isabela Zeberio"
-date: "`Sys.Date()`"
-output: html_document
----
-
-```{r setup, include=FALSE}
+## ----setup, include=FALSE-----------------------------------------------------
 knitr::opts_chunk$set(echo = TRUE)
-```
 
-## Data Harvesting of The Movie Database
 
-```{r message=FALSE}
+## ----message=FALSE------------------------------------------------------------
 library(httr2)
 library(tidyverse)
 library(purrr)
@@ -20,52 +11,40 @@ library(xml2)
 library(magrittr)
 library(plotly)
 library(lattice)
-```
 
-For this assignment we have created an R library to facilitate the extraction of data from The Movie Database (TMDB).
 
-```{r}
+## -----------------------------------------------------------------------------
 if (!require("remotes")) install.packages("remotes")
 remotes::install_github("myanesp/tmdbR")
 # And then load into your current session
 library(tmdbR)
-```
 
-Store your TMDB API as an environmental variable to start. The function will validate your API against TMDB servers, and check if it is right.
 
-```{r}
+## -----------------------------------------------------------------------------
 set_api_tmdb("/Users/isabelazeberio/Library/CloudStorage/OneDrive-UniversidadCarlosIIIdeMadrid/master/Data harvesting/token.txt")
-```
 
-The function `get_top_rated_movies()` allows you to obtain the list of the top rated movies of all times in TMDB.
 
-```{r}
+## -----------------------------------------------------------------------------
 top_rated_movies <- get_top_rated_movies()
-```
 
-With the function `get_top_rated_tv()` you can obtain the same list but for the top rated TV shows of all times.
 
-```{r}
+## -----------------------------------------------------------------------------
 top_rated_tv <- get_top_rated_tv()
-```
 
-If you want to have a dataframe with all movies or TV shows from TMDB use the function `get_streaming()`.
 
-```{r}
+## -----------------------------------------------------------------------------
 # Get the top rated movies
 top_movies <- get_streaming(top_rated_movies, "movie")
 glimpse(top_movies)
-```
 
-We will use the Prism scale color from [Carto](https://carto.com/carto-colors/) to visualize the information we scrapped.
 
-```{r}
+## -----------------------------------------------------------------------------
 prism <- c("#5F4690","#1D6996","#38A6A5","#0F8554","#73AF48","#EDAD08","#E17C05","#CC503E","#94346E",
                      "#6F4070","#994E95","#666666")
 
-```
 
-```{r}
+
+## -----------------------------------------------------------------------------
 # Grouped barplot
 ggplot(top_movies, aes(x = reorder(title, popularity), y = popularity, alpha = 0.7)) + 
   geom_bar(position="dodge", stat="identity", fill="#5F4690") +
@@ -74,16 +53,16 @@ ggplot(top_movies, aes(x = reorder(title, popularity), y = popularity, alpha = 0
   guides(alpha = FALSE) +
   theme_minimal()
 
-```
 
-```{r}
+
+## -----------------------------------------------------------------------------
 # Get the top rated tv shows
 top_rated_tv <- get_streaming(top_rated_tv, type = "tv")
 glimpse(top_rated_tv)
 
-```
 
-```{r}
+
+## -----------------------------------------------------------------------------
 ggplot(top_rated_tv, aes(x = reorder(title, popularity), y = popularity, alpha = 0.7)) + 
   geom_bar(position="dodge", stat="identity", fill="#1D6996" ) +
   labs(x = "Series Titles", y = "Popularity") +
@@ -91,11 +70,9 @@ ggplot(top_rated_tv, aes(x = reorder(title, popularity), y = popularity, alpha =
   guides(alpha = FALSE) +
   theme_minimal()
 
-```
 
-Because the Last of Us is so popular, it makes a little bit difficult to understand how popular are the rest of the series. To improve the visualization of this data we decided to remove this series form the database
 
-```{r}
+## -----------------------------------------------------------------------------
 top_rated_tv <- top_rated_tv[-which.max(top_rated_tv$popularity), ]
 
 ggplot(top_rated_tv, aes(x = reorder(title, popularity), y = popularity, alpha = 0.7)) + 
@@ -106,20 +83,18 @@ ggplot(top_rated_tv, aes(x = reorder(title, popularity), y = popularity, alpha =
   theme_minimal()
 
 
-```
 
-To find out which movies and series are trending on the day the code is executed, we can use the function `get_trending_day()` and if we want to know the trending list by week, `get_trending_week()`.
 
-```{r}
+## -----------------------------------------------------------------------------
 # Get the trending media of the day
 day <- get_trending_day()
 
 # Get the trending media of the week
 week <- get_trending_week()
 
-```
 
-```{r}
+
+## -----------------------------------------------------------------------------
 # Remove the the mos popular for visualization purposes 
 day <- day[-which.max(day$popularity), ]
 
@@ -142,9 +117,9 @@ ggplotly(tr_day, tooltip = c("y", "text", "fill")) %>%
          yaxis = list(title = "Media Content", automargin = TRUE),
          legend = list(title = "Media Type"))
 
-```
 
-```{r}
+
+## -----------------------------------------------------------------------------
 # Remove the the mos popular for visualization purposes 
 week <- week[-which.max(week$popularity), ]
 
@@ -165,35 +140,28 @@ ggplotly(tr_week, tooltip = c("y", "text", "fill")) %>%
          yaxis = list(title = "Media Content", automargin = TRUE),
          legend = list(title = "Media Type"))
 
-```
 
-Movie genre is a very interesting variable for analyzing films and series. When we scrap the TMDB API what we get as genre is a numerical code. To make easier the task of analyzing and understanding this data, we have decided to create tow functions to recode these numbers to the genre categories they correspond to:
 
--   A matrix equivalence of genres ids and genres names for movies → `get_movie_genres()`
--   A matrix equivalence of genres ids and genres names for TV shows → `get_tv_genres()`
-
-```{r}
+## -----------------------------------------------------------------------------
 get_movie_genres()
 get_tv_genres()
-```
 
-```{r}
+
+## -----------------------------------------------------------------------------
 movies_genres <- top_rated_movies %>%
   transform_genres()
 
 series_genres <- top_rated_tv %>% 
   transform_genres()
-```
 
-If we take a look at the genre column, we will see that it is now composed of characters. Although this is good to know the genres of each content, they make the visualization work a bit more difficult. What we decided to do is to create a function to separate in columns each split genre by the comma (the ones that come with & we understand them as a genre)
 
-```{r}
+## -----------------------------------------------------------------------------
 unique(movies_genres$genres)
 unique(series_genres$genres)
 
-```
 
-```{r}
+
+## -----------------------------------------------------------------------------
 # Initialize empty columns for each genre
 for (i in 1:4) {
   col_name <- paste0("genre", i)
@@ -213,9 +181,9 @@ for (i in 1:nrow(movies_genres)) {
 
 # Print the result
 movies_genres 
-```
 
-```{r}
+
+## -----------------------------------------------------------------------------
 m_genre <- ggplot(movies_genres, aes(x = reorder(title, popularity), 
                           y = popularity, fill = genre1, alpha = 0.7,
                           text = paste("Subgenres: ", genres))) +
@@ -234,9 +202,9 @@ ggplotly(m_genre, tooltip = c("y", "text")) %>%
          legend = list(title = "Genres"))
 
 
-```
 
-```{r}
+
+## -----------------------------------------------------------------------------
 # initialize empty columns for each genre
 for (i in 1:4) {
   col_name <- paste0("genre", i)
@@ -256,9 +224,9 @@ for (i in 1:nrow(series_genres)) {
 # print the result
 series_genres
 
-```
 
-```{r}
+
+## -----------------------------------------------------------------------------
 s_genre <- ggplot(series_genres, aes(x = reorder(title, popularity), 
                           y = popularity, fill = genre1, alpha = 0.7,
                           text = paste("Subgenres: ", genres))) +
@@ -276,60 +244,38 @@ ggplotly(s_genre, tooltip = c("y", "text")) %>%
          legend = list(title = "Genres"))
 
 
-```
 
-We could do this same type of analysis for the daily and the weekly trending lists with the functions of the package.
 
-```{r}
+## -----------------------------------------------------------------------------
 week %>% 
   transform_genres()
 
 day %>% 
   transform_genres()
 
-```
 
-With the functiom `get_streaming_df()` you can add the streaming providers for media in an existing dataframe. Thus, if you have a cool dataframe with information about movies and TV shows, you can complement it with the place where the content is available (currently, for USA and Spain). This information if obtained through JustWatch.
 
-```{r}
+## -----------------------------------------------------------------------------
 day %>% get_streaming_df()
 
 day %>% transform_genres()
-```
 
-With the id of the media we can check whether the content we want to watch is available and in which country.
 
-```{r}
+## -----------------------------------------------------------------------------
 get_streaming_providers(804150, "movie", "US")
 get_streaming_providers(238, "movie", "US")
 get_streaming_providers(238, "movie", "ES")
 get_streaming_providers(13, "movie", "AR")
 
-```
 
-So far, the information we have had about the films and series consist on:
 
--   The title
--   The genre(s)
--   The data when it was first aired
--   The country of origin
--   The original language of the media content
--   The original name
--   A short overview
--   The popularity
--   The vote average and count
--   The media type: tv or movie
--   The streaming platform where the media content is available for the US and Spain
-
-In the case that this information is not sufficient with the function or it does not answer to your media cuiosity, we created the function `get_detailes()` with which many more details like the revenue or the cast of the media can be requested.
-
-```{r}
+## -----------------------------------------------------------------------------
 get_details(238, "movie", "budget")
 top_rated_movies %>% add_detail(c("revenue", "budget"))
 
-```
 
-```{r}
+
+## -----------------------------------------------------------------------------
 movie_profits <- movies_genres %>% add_detail(c("revenue", "budget"))
 movie_profits <-  movie_profits %>% mutate(profits = 
                                              ifelse(budget == 0 | revenue == 0, NA, revenue - budget))
@@ -367,11 +313,9 @@ ggplotly(budget_profits, tooltip = c("y", "text", "x", "color", "size")) %>%
   scale_fill_manual(values = prism) +
   coord_flip() + 
   theme_minimal()
-```
 
-We can see the which concatenation of movie genres is the most popular calculating the averafe vote count by movie genre.
 
-```{r}
+## -----------------------------------------------------------------------------
 average_rating_by_genre <- movies_genres %>%
   group_by(genres, genre1) %>%
   summarize(average_vote_count = mean(vote_count, na.rm = TRUE))
@@ -388,125 +332,109 @@ ggplot(average_rating_by_genre, aes(x = reorder(genres, average_vote_count),
   labs(title = "Average Movie Rating by Genre", x = "Genres", y = "Average Vote Count") +
   coord_flip() +
   theme_minimal()
-```
 
-```{r}
+
+## -----------------------------------------------------------------------------
 serie_status <- top_rated_tv %>% add_detail("status")
 serie_status
-```
 
-```{r}
+
+## -----------------------------------------------------------------------------
 ggplot(serie_status, aes(x = status, y = popularity, fill = status)) + 
   geom_boxplot(alpha = 0.7) +
   scale_fill_manual(values = prism) +
   labs(title = "Series Status and Popularity",
        x = "Status", y = "Popularity") +
   theme_bw()
-```
 
-Another function we created is `search_tmdb()` which allows you to directly search for a given movie or a given person from R and obtain the basic informatoin about it
 
-```{r}
+## -----------------------------------------------------------------------------
 search_tmdb("castle")
 search_tmdb("pitt")
 search_tmdb("encanto")
 
-```
-
-## Limitations
-
-As reported on the final project, the Selenium part was painful to do. Sometimes it doesn't start, but right after it does, but then stop to recognize commands. Besides that, we want to mantain the code that we would use to extract the ids of the top rated movies filtered by year.
-
-### Bonus: exploring popular movies and tv shows by year
-
-To extract the top rated movies or tv shows specifying the year (instead of all time), we wanted to have the ability of selecting a given year to surf another list of top rated media. For that, we have to use RSelenium, so we load the library.
-
-```{r eval=FALSE, include=FALSE}
-library(RSelenium)
-```
-
-```{r eval=FALSE, include=FALSE}
-top_rated_movies <- "https://www.themoviedb.org/movie/top-rated"
-top_rated_series <- "https://www.themoviedb.org/tv/top-rated"
 
 
-remDr <- remoteDriver(browser = "firefox", port = 4445L)
-
-remDr$open()
-
-
-remDr$navigate("https://www.themoviedb.org/tv/top-rated")
-
-#remDr$sendKeysToElement(list(key = "down_arrow"))
-
-remDr$findElement(using = "xpath", value = "//section//h2[contains('Filtros')]")$clickElement()
-
-remDr$findElement(using = "xpath", value = '//*[@id="release_date_gte"]')$sendKeysToElement(list("01-01-2022"))
-start
-
-remDr$findElement(using = "xpath", value = '//*[@id="release_date_lte"]')$sendKeysToElement(list("31-12-2022"))
-end
-
-remDr$findElement(using = "xpath", value = "//section//p[contains(@a, 'load_more')]")$clickElement()
-close
-
-page_source <- remDr$getPageSource()[[1]]
-
-remDr$close()
-
-top_rated_year <-
-  page_source %>%
-  read_html()
-```
-
-```{r eval=FALSE, include=FALSE}
+## ----eval=FALSE, include=FALSE------------------------------------------------
+## library(RSelenium)
 
 
-top_rated_year <- function(year, type) {
-  
-  start <- paste("01-01", year, sep = "-")
-  end <- paste("31-12", year, sep = "-")
-  
-  if (type == "movie") {
-    endpoint <- "https://www.themoviedb.org/movie/top-rated"
-  } else if (type == "tv") {
-    endpoint <- "https://www.themoviedb.org/tv/top-rated"
-  } else {
-    stop("You have not provided a valid media type. It should be 'tv' or 'movie'")
-  }
+## ----eval=FALSE, include=FALSE------------------------------------------------
+## top_rated_movies <- "https://www.themoviedb.org/movie/top-rated"
+## top_rated_series <- "https://www.themoviedb.org/tv/top-rated"
+## 
+## 
+## remDr <- remoteDriver(browser = "firefox", port = 4445L)
+## 
+## remDr$open()
+## 
+## 
+## remDr$navigate("https://www.themoviedb.org/tv/top-rated")
+## 
+## #remDr$sendKeysToElement(list(key = "down_arrow"))
+## 
+## remDr$findElement(using = "xpath", value = "//section//h2[contains('Filtros')]")$clickElement()
+## 
+## remDr$findElement(using = "xpath", value = '//*[@id="release_date_gte"]')$sendKeysToElement(list("01-01-2022"))
+## start
+## 
+## remDr$findElement(using = "xpath", value = '//*[@id="release_date_lte"]')$sendKeysToElement(list("31-12-2022"))
+## end
+## 
+## remDr$findElement(using = "xpath", value = "//section//p[contains(@a, 'load_more')]")$clickElement()
+## close
+## 
+## page_source <- remDr$getPageSource()[[1]]
+## 
+## remDr$close()
+## 
+## top_rated_year <-
+##   page_source %>%
+##   read_html()
 
-  # Selenium part
-  
-  top_rated_year <-
-    page_source %>%
-    read_html()
-  
-  for (i in 1:20){
-    xpath_expr <- paste0("/html/body/div[1]/main/section/div/div/div/div[2]/div[2]/div/section/div/div/div[", i, "]/div[2]/h2/a/@href")
-    Sys.sleep(1)
-    top_rated_year <- 
-      xml_find_all(xpath_expr) %>%
-      xml_text()
-    top_id <- gsub("/movie/", "", top_rated_year)
-    ids_movies[[i]] <- top_id
-  }
 
-  for (i in 1:20){
-    xpath_expr <- paste0("/html/body/div[1]/main/section/div/div/div/div[2]/div[2]/div/section/div/div/div[", i, "]/div[2]/h2/a/@href")
-    Sys.sleep(1)
-    link <- top_rated_series %>% 
-      read_html() %>% 
-      xml_find_all(xpath_expr) %>%
-      xml_text()
-    link_num <- gsub("/tv/", "", link)
-    ids_tv[[i]] <- link_num
-    }
-}
+## ----eval=FALSE, include=FALSE------------------------------------------------
+## 
+## 
+## top_rated_year <- function(year, type) {
+## 
+##   start <- paste("01-01", year, sep = "-")
+##   end <- paste("31-12", year, sep = "-")
+## 
+##   if (type == "movie") {
+##     endpoint <- "https://www.themoviedb.org/movie/top-rated"
+##   } else if (type == "tv") {
+##     endpoint <- "https://www.themoviedb.org/tv/top-rated"
+##   } else {
+##     stop("You have not provided a valid media type. It should be 'tv' or 'movie'")
+##   }
+## 
+##   # Selenium part
+## 
+##   top_rated_year <-
+##     page_source %>%
+##     read_html()
+## 
+##   for (i in 1:20){
+##     xpath_expr <- paste0("/html/body/div[1]/main/section/div/div/div/div[2]/div[2]/div/section/div/div/div[", i, "]/div[2]/h2/a/@href")
+##     Sys.sleep(1)
+##     top_rated_year <-
+##       xml_find_all(xpath_expr) %>%
+##       xml_text()
+##     top_id <- gsub("/movie/", "", top_rated_year)
+##     ids_movies[[i]] <- top_id
+##   }
+## 
+##   for (i in 1:20){
+##     xpath_expr <- paste0("/html/body/div[1]/main/section/div/div/div/div[2]/div[2]/div/section/div/div/div[", i, "]/div[2]/h2/a/@href")
+##     Sys.sleep(1)
+##     link <- top_rated_series %>%
+##       read_html() %>%
+##       xml_find_all(xpath_expr) %>%
+##       xml_text()
+##     link_num <- gsub("/tv/", "", link)
+##     ids_tv[[i]] <- link_num
+##     }
+## }
+## 
 
-```
-
-## Summary
-
-Visual summary of package creation and Selenium
-
-![](summary.jpg)

@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Behind the Screen</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Mario Yanes and Isabela Zeberio" />
+    <meta name="date" content="2023-03-17" />
+    <script src="libs/header-attrs-2.20/header-attrs.js"></script>
+    <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <link href="libs/remark-css-0.0.1/metropolis.css" rel="stylesheet" />
+    <script src="libs/htmlwidgets-1.6.1/htmlwidgets.js"></script>
+    <script src="libs/plotly-binding-4.10.1/plotly.js"></script>
+    <script src="libs/typedarray-0.1/typedarray.min.js"></script>
+    <script src="libs/jquery-3.5.1/jquery.min.js"></script>
+    <link href="libs/crosstalk-1.2.0/css/crosstalk.min.css" rel="stylesheet" />
+    <script src="libs/crosstalk-1.2.0/js/crosstalk.min.js"></script>
+    <link href="libs/plotly-htmlwidgets-css-2.11.1/plotly-htmlwidgets.css" rel="stylesheet" />
+    <script src="libs/plotly-main-2.11.1/plotly-latest.min.js"></script>
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+.title[
+# Behind the Screen
+]
+.subtitle[
+## Webscraping for Insights into Movie and TV Series Data
+]
+.author[
+### Mario Yanes and Isabela Zeberio
+]
+.date[
+### 2023-03-17
+]
+
+---
+
+
+
+
+
+
+
+
+
+## Index
+
+-   The Movie DataBase
+
+-   Library `tmdbR`
+
+-   Data visualization
+
+-   Limitations
+
+---
+
+
+## The Movie DataBase
+
+-   Extract information on top 20 daily and weekly movies and series
+
+-   Extract media content's genre and recode it into categories
+
+![](screenshot_tmdb.png)
+
+---
+
+## **`library(tmdbR)`**
+
+
+```r
+remotes::install_github("myanesp/tmdbR")
+```
+
+-   Package with 22 functions
+-   We will be adding more features to the package
+
+|                                                                          |
+|------------------------|---------------------|---------------------------|
+| get_top_rated_movies() | get_trending_day()  | get_upcoming()            |
+| get_top_rated_tv()     | get_trending_week() | get_in_cinemas()          |
+| get_streaming_df()     | get_details()       | get_streaming_providers() |
+| transform_genres()     | add_details()       | search_tmdb()             |
+
+---
+## Data visualization
+
+<div class="plotly html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-8d2deac892c16a5367e5" style="width:100%;height:432px;"></div>
+<script type="application/json" data-for="htmlwidget-8d2deac892c16a5367e5">{"x":{"data":[{"orientation":"h","width":[0.899999999999999,0.899999999999999,0.899999999999999],"base":[0,0,0],"x":[120.864,151.079,123.009],"y":[11,15,12],"text":["popularity: 120.864<br />Subgenres:  Action & Adventure, Animation, Sci-Fi & Fantasy","popularity: 151.079<br />Subgenres:  Action & Adventure, Comedy, Animation","popularity: 123.009<br />Subgenres:  Action & Adventure, Animation"],"type":"bar","textposition":"none","marker":{"autocolorscale":false,"color":"rgba(95,70,144,0.55)","line":{"width":1.88976377952756,"color":"transparent"}},"name":"Action & Adventure","legendgroup":"Action & Adventure","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"orientation":"h","width":[0.9,0.899999999999999,0.899999999999999,0.899999999999999,0.899999999999999,0.9,0.899999999999999,0.9,0.9,0.899999999999999],"base":[0,0,0,0,0,0,0,0,0,0],"x":[68.393,332.487,474.342,81.584,150.342,14.635,146.407,76.434,72.425,412.635],"y":[5,16,19,8,14,2,13,7,6,17],"text":["popularity:  68.393<br />Subgenres:  Animation, Action & Adventure, Sci-Fi & Fantasy","popularity: 332.487<br />Subgenres:  Animation, Comedy","popularity: 474.342<br />Subgenres:  Animation, Comedy, Sci-Fi & Fantasy, Action & Adventure","popularity:  81.584<br />Subgenres:  Animation, Comedy, Drama","popularity: 150.342<br />Subgenres:  Animation, Sci-Fi & Fantasy, Action & Adventure","popularity:  14.635<br />Subgenres:  Animation, Comedy","popularity: 146.407<br />Subgenres:  Animation, Sci-Fi & Fantasy, Family, Action & Adventure, Comedy","popularity:  76.434<br />Subgenres:  Animation, Sci-Fi & Fantasy, Action & Adventure, Drama","popularity:  72.425<br />Subgenres:  Animation, Sci-Fi & Fantasy, Action & Adventure, Drama","popularity: 412.635<br />Subgenres:  Animation, Action & Adventure, Sci-Fi & Fantasy, Comedy"],"type":"bar","textposition":"none","marker":{"autocolorscale":false,"color":"rgba(29,105,150,0.55)","line":{"width":1.88976377952756,"color":"transparent"}},"name":"Animation","legendgroup":"Animation","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"orientation":"h","width":0.9,"base":0,"x":[20.585],"y":[3],"text":"popularity:  20.585<br />Subgenres:  Comedy, Animation","type":"bar","textposition":"none","marker":{"autocolorscale":false,"color":"rgba(56,166,165,0.55)","line":{"width":1.88976377952756,"color":"transparent"}},"name":"Comedy","legendgroup":"Comedy","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"orientation":"h","width":[0.899999999999999,0.899999999999999,0.899999999999999],"base":[0,0,0],"x":[418.716,105.999,91.935],"y":[18,10,9],"text":["popularity: 418.716<br />Subgenres:  Drama","popularity: 105.999<br />Subgenres:  Drama, Sci-Fi & Fantasy, Comedy","popularity:  91.935<br />Subgenres:  Drama, Family"],"type":"bar","textposition":"none","marker":{"autocolorscale":false,"color":"rgba(15,133,84,0.55)","line":{"width":1.88976377952756,"color":"transparent"}},"name":"Drama","legendgroup":"Drama","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"orientation":"h","width":[0.9,0.9],"base":[0,0],"x":[12.382,65.504],"y":[1,4],"text":["popularity:  12.382<br />Subgenres:  Reality","popularity:  65.504<br />Subgenres:  Reality"],"type":"bar","textposition":"none","marker":{"autocolorscale":false,"color":"rgba(115,175,72,0.55)","line":{"width":1.88976377952756,"color":"transparent"}},"name":"Reality","legendgroup":"Reality","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null}],"layout":{"margin":{"t":23.3059360730594,"r":7.30593607305936,"b":37.2602739726027,"l":218.447488584475},"font":{"color":"rgba(0,0,0,1)","family":"","size":14.6118721461187},"xaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[-23.7171,498.0591],"tickmode":"array","ticktext":["0","100","200","300","400"],"tickvals":[0,100,200,300,400],"categoryorder":"array","categoryarray":["0","100","200","300","400"],"nticks":null,"ticks":"","tickcolor":null,"ticklen":3.65296803652968,"tickwidth":0,"showticklabels":true,"tickfont":{"color":"rgba(77,77,77,1)","family":"","size":11.689497716895},"tickangle":-0,"showline":false,"linecolor":null,"linewidth":0,"showgrid":true,"gridcolor":"rgba(235,235,235,1)","gridwidth":0.66417600664176,"zeroline":false,"anchor":"y","title":"Popularity","hoverformat":".2f"},"yaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[0.4,19.6],"tickmode":"array","ticktext":["The D'Amelio Show","Hitoribocchi no Marumaruseikatsu","Asobi Asobase - workshop of fun -","The Kardashians","Avatar: The Last Airbender","Invincible","Arcane","Kaguya-sama: Love Is War","Anne with an E","Goblin","Fullmetal Alchemist: Brotherhood","My Hero Academia","The Owl House","Demon Slayer: Kimetsu no Yaiba","One Piece","Regular Show","Chainsaw Man","Breaking Bad","Rick and Morty"],"tickvals":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19],"categoryorder":"array","categoryarray":["The D'Amelio Show","Hitoribocchi no Marumaruseikatsu","Asobi Asobase - workshop of fun -","The Kardashians","Avatar: The Last Airbender","Invincible","Arcane","Kaguya-sama: Love Is War","Anne with an E","Goblin","Fullmetal Alchemist: Brotherhood","My Hero Academia","The Owl House","Demon Slayer: Kimetsu no Yaiba","One Piece","Regular Show","Chainsaw Man","Breaking Bad","Rick and Morty"],"nticks":null,"ticks":"","tickcolor":null,"ticklen":3.65296803652968,"tickwidth":0,"showticklabels":true,"tickfont":{"color":"rgba(77,77,77,1)","family":"","size":11.689497716895},"tickangle":-0,"showline":false,"linecolor":null,"linewidth":0,"showgrid":true,"gridcolor":"rgba(235,235,235,1)","gridwidth":0.66417600664176,"zeroline":false,"anchor":"x","title":"Series Titles","hoverformat":".2f"},"shapes":[{"type":"rect","fillcolor":null,"line":{"color":null,"width":0,"linetype":[]},"yref":"paper","xref":"paper","x0":0,"x1":1,"y0":0,"y1":1}],"showlegend":true,"legend":{"bgcolor":null,"bordercolor":null,"borderwidth":0,"font":{"color":"rgba(0,0,0,1)","family":"","size":11.689497716895},"title":"Genres"},"hovermode":"closest","barmode":"relative","title":"Most Popular Series by Genre"},"config":{"doubleClick":"reset","modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false},"source":"A","attrs":{"7f03da459fb":{"x":{},"y":{},"fill":{},"alpha":{},"text":{},"type":"bar"}},"cur_data":"7f03da459fb","visdat":{"7f03da459fb":["function (y) ","x"]},"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.2,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+
+
+---
+## Data visualization
+
+<div class="plotly html-widget html-fill-item-overflow-hidden html-fill-item" id="htmlwidget-007d4ca326a0cb7b9205" style="width:100%;height:432px;"></div>
+<script type="application/json" data-for="htmlwidget-007d4ca326a0cb7b9205">{"x":{"data":[{"x":[94000000],"y":[1024888979],"text":"budget:  94000000<br />profits: 1024888979<br />revenue: 1118888979<br />genre1: Adventure<br />Title:  The Lord of the Rings: The Return of the King","type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(95,70,144,1)","opacity":0.7,"size":75.5905511811024,"symbol":"circle","line":{"width":1.88976377952756,"color":"rgba(95,70,144,1)"}},"hoveron":"points","name":"Adventure","legendgroup":"Adventure","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[19000000],"y":[255925095],"text":"budget:  19000000<br />profits:  255925095<br />revenue:  274925095<br />genre1: Animation<br />Title:  Spirited Away","type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(29,105,150,1)","opacity":0.7,"size":41.2355276506937,"symbol":"circle","line":{"width":1.88976377952756,"color":"rgba(29,105,150,1)"}},"hoveron":"points","name":"Animation","legendgroup":"Animation","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[13200000,55000000,11363000],"y":[86800000,622387716,246228776],"text":["budget:  13200000<br />profits:   86800000<br />revenue:  100000000<br />genre1: Comedy<br />Title:  Dilwale Dulhania Le Jayenge","budget:  55000000<br />profits:  622387716<br />revenue:  677387716<br />genre1: Comedy<br />Title:  Forrest Gump","budget:  11363000<br />profits:  246228776<br />revenue:  257591776<br />genre1: Comedy<br />Title:  Parasite"],"type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(56,166,165,1)","opacity":0.7,"size":[27.8045446104846,60.4776787563813,40.1526340420756],"symbol":"circle","line":{"width":1.88976377952756,"color":"rgba(56,166,165,1)"}},"hoveron":"points","name":"Comedy","legendgroup":"Comedy","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[6000000,25000000,13000000,22000000,185000000,350000,25000000],"y":[239066411,3341469,89600000,299365567,819558444,650000,21835000],"text":["budget:   6000000<br />profits:  239066411<br />revenue:  245066411<br />genre1: Drama<br />Title:  The Godfather","budget:  25000000<br />profits:    3341469<br />revenue:   28341469<br />genre1: Drama<br />Title:  The Shawshank Redemption","budget:  13000000<br />profits:   89600000<br />revenue:  102600000<br />genre1: Drama<br />Title:  The Godfather Part II","budget:  22000000<br />profits:  299365567<br />revenue:  321365567<br />genre1: Drama<br />Title:  Schindler's List","budget: 185000000<br />profits:  819558444<br />revenue: 1004558444<br />genre1: Drama<br />Title:  The Dark Knight","budget:    350000<br />profits:     650000<br />revenue:    1000000<br />genre1: Drama<br />Title:  12 Angry Men","budget:  25000000<br />profits:   21835000<br />revenue:   46835000<br />genre1: Drama<br />Title:  GoodFellas"],"type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(15,133,84,1)","opacity":0.7,"size":[39.3471639834314,18.1985646144449,28.0686715446072,43.978523338021,72.0178258466993,7.55905511811024,21.3346163674728],"symbol":"circle","line":{"width":1.88976377952756,"color":"rgba(15,133,84,1)"}},"hoveron":"points","name":"Drama","legendgroup":"Drama","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[60000000],"y":[226801374],"text":"budget:  60000000<br />profits:  226801374<br />revenue:  286801374<br />genre1: Fantasy<br />Title:  The Green Mile","type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(115,175,72,1)","opacity":0.7,"size":41.9578193099568,"symbol":"circle","line":{"width":1.88976377952756,"color":"rgba(115,175,72,1)"}},"hoveron":"points","name":"Fantasy","legendgroup":"Fantasy","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[8000000],"y":[206179088],"text":"budget:   8000000<br />profits:  206179088<br />revenue:  214179088<br />genre1: Thriller<br />Title:  Pulp Fiction","type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(237,173,8,1)","opacity":0.7,"size":37.2677096917531,"symbol":"circle","line":{"width":1.88976377952756,"color":"rgba(237,173,8,1)"}},"hoveron":"points","name":"Thriller","legendgroup":"Thriller","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null},{"x":[1200000],"y":[24053887],"text":"budget:   1200000<br />profits:   24053887<br />revenue:   25253887<br />genre1: Western<br />Title:  The Good, the Bad and the Ugly","type":"scatter","mode":"markers","marker":{"autocolorscale":false,"color":"rgba(225,124,5,1)","opacity":0.7,"size":17.5798312322357,"symbol":"circle","line":{"width":1.88976377952756,"color":"rgba(225,124,5,1)"}},"hoveron":"points","name":"Western","legendgroup":"Western","showlegend":true,"xaxis":"x","yaxis":"y","hoverinfo":"text","frame":null}],"layout":{"margin":{"t":40.8401826484018,"r":7.30593607305936,"b":37.2602739726027,"l":101.552511415525},"font":{"color":"rgba(0,0,0,1)","family":"","size":14.6118721461187},"title":"Profit vs Budget Bubble Chart","xaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[-8882500,194232500],"tickmode":"array","ticktext":["0","50,000,000","100,000,000","150,000,000"],"tickvals":[0,50000000,100000000,150000000],"categoryorder":"array","categoryarray":["0","50,000,000","100,000,000","150,000,000"],"nticks":null,"ticks":"","tickcolor":null,"ticklen":3.65296803652968,"tickwidth":0,"showticklabels":true,"tickfont":{"color":"rgba(77,77,77,1)","family":"","size":11.689497716895},"tickangle":-0,"showline":false,"linecolor":null,"linewidth":0,"showgrid":true,"gridcolor":"rgba(235,235,235,1)","gridwidth":0.66417600664176,"zeroline":false,"anchor":"y","title":"Budget","hoverformat":".2f"},"yaxis":{"domain":[0,1],"automargin":true,"type":"linear","autorange":false,"range":[-50561948.95,1076100927.95],"tickmode":"array","ticktext":["0","250,000,000","500,000,000","750,000,000","1,000,000,000"],"tickvals":[0,250000000,500000000,750000000,1000000000],"categoryorder":"array","categoryarray":["0","250,000,000","500,000,000","750,000,000","1,000,000,000"],"nticks":null,"ticks":"","tickcolor":null,"ticklen":3.65296803652968,"tickwidth":0,"showticklabels":true,"tickfont":{"color":"rgba(77,77,77,1)","family":"","size":11.689497716895},"tickangle":-0,"showline":false,"linecolor":null,"linewidth":0,"showgrid":true,"gridcolor":"rgba(235,235,235,1)","gridwidth":0.66417600664176,"zeroline":false,"anchor":"x","title":"Profits","hoverformat":".2f"},"shapes":[{"type":"rect","fillcolor":null,"line":{"color":null,"width":0,"linetype":[]},"yref":"paper","xref":"paper","x0":0,"x1":1,"y0":0,"y1":1}],"showlegend":true,"legend":{"bgcolor":null,"bordercolor":null,"borderwidth":0,"font":{"color":"rgba(0,0,0,1)","family":"","size":11.689497716895},"title":"Genres"},"hovermode":"closest","barmode":"relative"},"config":{"doubleClick":"reset","modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false},"source":"A","attrs":{"7f037980c0a3":{"x":{},"y":{},"size":{},"colour":{},"text":{},"type":"scatter"}},"cur_data":"7f037980c0a3","visdat":{"7f037980c0a3":["function (y) ","x"]},"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.2,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+
+---
+
+## Streaming providers
+
+
+```r
+get_streaming_providers(804150, "movie", "US")
+```
+
+```
+## [1] "The provided movie is not available on the country you have selected."
+```
+
+```r
+get_streaming_providers(238, "movie", "US")
+```
+
+```
+## [1] "You can watch the requested movie in US on Peacock Premium"
+```
+
+```r
+get_streaming_providers(238, "movie", "ES")
+```
+
+```
+## [1] "You can watch the requested movie in ES on Netflix, Amazon Prime Video, HBO Max, Netflix basic with Ads, SkyShowtime"
+```
+
+```r
+search_tmdb("encanto")
+```
+
+```
+##    adult      id
+## 1  FALSE  568124
+## 2  FALSE 1041513
+## 3  FALSE  167710
+## 4  FALSE  121251
+## 5  FALSE  703155
+## 6  FALSE  110072
+## 7  FALSE  772174
+## 8  FALSE  685429
+## 9  FALSE  718602
+## 10 FALSE  693834
+## 11 FALSE  742548
+## 12 FALSE  535413
+## 13 FALSE  496018
+## 14 FALSE  188647
+## 15 FALSE  959736
+## 16 FALSE  807974
+## 17 FALSE  675133
+## 18 FALSE  933186
+## 19 FALSE  674090
+## 20 FALSE  156310
+##                                                                  title
+## 1                                                              Encanto
+## 2                                        Encanto at the Hollywood Bowl
+## 3                                        Death in the Land of Encantos
+## 4                                        Death in the Land of Encantos
+## 5                                                           El encanto
+## 6                                                El Encanto del Águila
+## 7                                          Los encantos de mí compadre
+## 8                                     Maria Rita – Canto Encanto Tanto
+## 9                                         Por Encanto: Notas de Outono
+## 10                           Teus olhos castanhos de encantos tamanhos
+## 11 Encantadeiras - O Canto e o Encanto das Quebradeiras de Coco Babaçu
+## 12                                                   Rua do Encanto 22
+## 13                                         Our Island, Our Enchantment
+## 14                                  Cantajuego: Una granja con encanto
+## 15                                              El encanto de la mosca
+## 16                                                  Os Encantos do Rio
+## 17                                 El Encanto de la Oscuridad: Parte 2
+## 18                                              Los encantos de Jazmín
+## 19                                 El Encanto de la Oscuridad: Parte 1
+## 20                                       El Encanto de Nuestras Raíces
+##    media_type         genre_ids original_language
+## 1       movie 16, 35, 10751, 14                en
+## 2       movie             10402                en
+## 3       movie                18                tl
+## 4          tv                18                en
+## 5       movie                18                es
+## 6          tv     99, 10768, 18                es
+## 7       movie                                  es
+## 8       movie         99, 10402                pt
+## 9       movie                                  pt
+## 10      movie                99                pt
+## 11      movie         99, 10402                pt
+## 12      movie                99                pt
+## 13      movie         10402, 99                es
+## 14      movie                                  es
+## 15      movie                99                es
+## 16      movie                                  en
+## 17      movie                                  en
+## 18      movie                99                en
+## 19      movie                                  en
+## 20         tv                99                es
+##                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             overview
+## 1                                                                                                                                                                                                                                                                                                                                                                                                                       The tale of an extraordinary family, the Madrigals, who live hidden in the mountains of Colombia, in a magical house, in a vibrant town, in a wondrous, charmed place called an Encanto. The magic of the Encanto has blessed every child in the family—every child except one, Mirabel. But when she discovers that the magic surrounding the Encanto is in danger, Mirabel decides that she, the only ordinary Madrigal, might just be her exceptional family's last hope.
+## 2                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 A taped performance of the Encanto Live-to-Film Concert Experience at the Hollywood Bowl. The original cast puts on a miracle of a concert as they sing the favorite songs, accompanied by a full orchestra and 50 person ensemble, and the Hollywood Bowl transforms into Casita!
+## 3                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    A Filipino poet returns home after the typhoon.
+## 4  A Filipino poet named Benjamin Agusan (Roeder Camanag) is the hapless native who returns to his hometown Padang to witness the aftermath of the super typhoon. For the past seven years, Benjamin had been living in an old town called Kaluga in Russia. With his grant and residency, he taught and conducted workshops in a university. The poet published two books of sadness and longing in the process. In Russia, Benjamin was able to shoot video collages, fell in love with a Slavic beauty, buried a son, and almost went mad. He came back to bury his dead-father, mother, sister and a lover. He came back to face Mount Mayon, the raging beauty and muse of his youth. He came home to confront the country that he so loved and hated, the Philippines. He came back to die in the land of his birth. He wanders around the obliterated village meeting old friends and lovers.
+## 5                                                                                                                                                                                                                                                                                                Bruno is thirty years old and has a girlfriend, Juliana, with whom he is about to celebrate a decade of love.He loves her, but feels that she no longer captivates him. She wants to be a mother. He doesn't know if he wants to take that step. He fears it could be a mistake, perhaps Juliana is not the woman of his life or perhaps it is too soon. To make matters worse, he is attracted to Lara, his new sexy and young employee. Further confused, Bruno only finds comfort in the company of his father and his old bass. This confusion pushes Bruno to reunite with an old love: music.
+## 6                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           A detailed dramatization of historical events during the time of the Revolution in Mexico.  Using never-before-known historical documents, details about what happened during the period from 1910 to 1928 are revealed.
+## 7                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   
+## 8                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    In the documentary, the singer Maria Rita talks about her professional career, music, and life.
+## 9                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   
+## 10                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      The story of a homeless man and his journey.
+## 11                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  The Encantadeiras is a group formed by a group of babassu coconut breakers from Maranhão. The film accompanies the 7 women on a tour and unveils the story of each one. Babaçu, feminism, land reform and music. A lot of music.
+## 12                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       Rua do Encanto 22, brings a small part of the history of a great Brazilian.
+## 13                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        A tour through some of the main festivities, carnivals, sports and casual events that we celebrate in Puerto Rico.  The 2017 edition of the yearly musical show produced by Banco Popular.
+## 14                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  
+## 15                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  
+## 16                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 A story of the Kuikuro people of Alto Xingu-MT, where their brothers Kangagatü and Kangagahangü fight over a girl his girlfriend.
+## 17                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              Mexican feature film
+## 18                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  
+## 19                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             After a terrible incident, Annie Collingwood will lose her boyfriend and to get it back she will have to deliver 3 objects of great value to a strange entity called the illusionist.
+## 20                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  
+##                                                         original_title
+## 1                                                              Encanto
+## 2                                        Encanto at the Hollywood Bowl
+## 3                               Kagadanan sa Banwaan Ning mga Engkanto
+## 4                               Kagadanan sa Banwaan Ning mga Engkanto
+## 5                                                           El encanto
+## 6                                                El Encanto del Águila
+## 7                                          Los encantos de mí compadre
+## 8                                     Maria Rita – Canto Encanto Tanto
+## 9                                         Por Encanto: Notas de Outono
+## 10                           Teus olhos castanhos de encantos tamanhos
+## 11 Encantadeiras - O Canto e o Encanto das Quebradeiras de Coco Babaçu
+## 12                                                   Rua do Encanto 22
+## 13                                        Nuestra Isla Nuestro Encanto
+## 14                                  Cantajuego: Una granja con encanto
+## 15                                              El encanto de la mosca
+## 16                                                  Os Encantos do Rio
+## 17                                 El Encanto de la Oscuridad: Parte 2
+## 18                                              Los encantos de Jazmín
+## 19                                 El Encanto de la Oscuridad: Parte 1
+## 20                                       El Encanto de Nuestras Raíces
+##    popularity release_date video vote_average vote_count first_air_date
+## 1     235.029   2021-10-13 FALSE        7.651       8041           &lt;NA&gt;
+## 2     368.603   2022-12-28 FALSE        7.300        106           &lt;NA&gt;
+## 3       1.822   2007-04-26 FALSE        7.700         12           &lt;NA&gt;
+## 4       0.842         &lt;NA&gt;    NA        0.000          0     2007-03-20
+## 5       2.503   2020-07-30 FALSE        6.400         53           &lt;NA&gt;
+## 6       0.783         &lt;NA&gt;    NA        5.500          2     2011-11-15
+## 7       0.600   1997-01-01 FALSE        5.000          2           &lt;NA&gt;
+## 8       0.600   2013-07-08 FALSE        0.000          0           &lt;NA&gt;
+## 9       0.600   2002-03-05 FALSE        0.000          0           &lt;NA&gt;
+## 10      0.600   2018-01-01 FALSE        0.000          0           &lt;NA&gt;
+## 11      0.600   2020-09-10 FALSE        0.000          0           &lt;NA&gt;
+## 12      0.600   2014-07-01 FALSE       10.000          1           &lt;NA&gt;
+## 13      0.600   2017-12-01 FALSE        0.000          0           &lt;NA&gt;
+## 14      0.600   2011-03-28 FALSE        0.000          0           &lt;NA&gt;
+## 15      0.600   2022-04-07 FALSE        0.000          0           &lt;NA&gt;
+## 16      0.600   2017-02-03 FALSE        0.000          0           &lt;NA&gt;
+## 17      0.600   2018-01-01 FALSE        4.500          4           &lt;NA&gt;
+## 18      0.600   1998-01-01 FALSE        0.000          0           &lt;NA&gt;
+## 19      0.600   2016-01-01 FALSE        5.300          3           &lt;NA&gt;
+## 20      0.600         &lt;NA&gt;    NA        2.000          1     2022-01-14
+##    origin_country   premiere                    backdrop_path
+## 1            NULL 2021-10-13 /3G1Q5xF40HkUBJXxt2DQgQzKTp5.jpg
+## 2            NULL 2022-12-28 /tsjXBo4LmzV0Bb9hdrz25tzX5GD.jpg
+## 3            NULL 2007-04-26 /iqjRg8U00S0mSHAeojzeeYry8Ao.jpg
+## 4            NULL 2007-03-20                             &lt;NA&gt;
+## 5            NULL 2020-07-30                             &lt;NA&gt;
+## 6              MX 2011-11-15 /jJuKl0ElNefBZlkkrT6kvNLubJa.jpg
+## 7            NULL 1997-01-01                             &lt;NA&gt;
+## 8            NULL 2013-07-08                             &lt;NA&gt;
+## 9            NULL 2002-03-05                             &lt;NA&gt;
+## 10           NULL 2018-01-01                             &lt;NA&gt;
+## 11           NULL 2020-09-10 /AdA7u6ImHvjYW9r0nahjOThHV0C.jpg
+## 12           NULL 2014-07-01                             &lt;NA&gt;
+## 13           NULL 2017-12-01 /5ntvyCHRtWd3m7CHYH2SyFD0K4R.jpg
+## 14           NULL 2011-03-28                             &lt;NA&gt;
+## 15           NULL 2022-04-07                             &lt;NA&gt;
+## 16           NULL 2017-02-03                             &lt;NA&gt;
+## 17           NULL 2018-01-01                             &lt;NA&gt;
+## 18           NULL 1998-01-01                             &lt;NA&gt;
+## 19           NULL 2016-01-01                             &lt;NA&gt;
+## 20             CO 2022-01-14 /lbD9ZwaZundSgUV6yIHoCuMMzxD.jpg
+##                         poster_path
+## 1  /4j0PNHkMr5ax3IA8tjtxcmPU3QT.jpg
+## 2  /sa3Ku5yNVjp8NloWxJoI9dQjvOi.jpg
+## 3  /iNAjcvAHKyv0MGO5ABl5pvQL6FA.jpg
+## 4  /64u6U5ZycRbfN5nc0bG36QjYq45.jpg
+## 5  /pZMFUQ3iw9ST9e1v0F8qxLwWg0D.jpg
+## 6  /fhfciujPkKvT4sBM8HfWc6xwpMO.jpg
+## 7  /aIX7c82fvqFfLwxcTR3xF2bn6RP.jpg
+## 8  /kwwWXHtOWPmtmGxG6wISINW9VZk.jpg
+## 9                              &lt;NA&gt;
+## 10                             &lt;NA&gt;
+## 11 /nT11dwnimTe9xE2nW5c1we2IEYt.jpg
+## 12 /agLt9g1d2WpV4RfOAQGoJ5hj7GT.jpg
+## 13 /mTHKyXEhlwriE0kWGFg1DdRuyql.jpg
+## 14                             &lt;NA&gt;
+## 15 /qHxT9KSkEeKgdIkUZ4GKZZHm2VT.jpg
+## 16                             &lt;NA&gt;
+## 17 /3mlH3DDRlPyQNTCIBb5YFX6liPd.jpg
+## 18                             &lt;NA&gt;
+## 19 /cCKIbmSSPPI0xIPxLMxb5hMmavF.jpg
+## 20                             &lt;NA&gt;
+```
+
+
+---
+
+## **`add_details()`**
+
+
+
+
+```r
+get_details(545611, "movie", "budget")
+```
+
+```
+##                               title     id   budget
+## 1 Everything Everywhere All at Once 545611 25000000
+```
+
+```r
+head(rev_budget)
+```
+
+```
+## # A tibble: 6 × 3
+##   title                         revenue   budget
+##   &lt;chr&gt;                           &lt;int&gt;    &lt;int&gt;
+## 1 The Godfather               245066411  6000000
+## 2 The Shawshank Redemption     28341469 25000000
+## 3 Cuando Sea Joven                    0        0
+## 4 The Godfather Part II       102600000 13000000
+## 5 Schindler's List            321365567 22000000
+## 6 Dilwale Dulhania Le Jayenge 100000000 13200000
+```
+
+---
+
+## Limitations
+
+-   Selenium
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
