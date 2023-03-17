@@ -34,7 +34,7 @@ library(tmdbR)
 Store your TMDB API as an environmental variable to start. The function will validate your API against TMDB servers, and check if it is right.
 
 ```{r}
-set_api_tmdb("/Users/isabelazeberio/Library/CloudStorage/OneDrive-UniversidadCarlosIIIdeMadrid/master/Data harvesting/token.txt")
+set_api_tmdb("token.txt")
 ```
 
 The function `get_top_rated_movies()` allows you to obtain the list of the top rated movies of all times in TMDB.
