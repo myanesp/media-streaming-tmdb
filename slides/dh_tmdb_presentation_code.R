@@ -21,7 +21,7 @@ library(tmdbR)
 
 
 ## ------------------------------------------------------------------------------------------------------------------
-set_api_tmdb("/Users/isabelazeberio/Library/CloudStorage/OneDrive-UniversidadCarlosIIIdeMadrid/master/Data harvesting/token.txt")
+set_api_tmdb("../../token.txt")
 
 
 ## ------------------------------------------------------------------------------------------------------------------

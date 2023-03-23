@@ -28,7 +28,7 @@ library(plotly)
 library(lattice)
 library(webshot)
 library(tmdbR)
-set_api_tmdb("/Users/isabelazeberio/Library/CloudStorage/OneDrive-UniversidadCarlosIIIdeMadrid/master/Data harvesting/token.txt")
+set_api_tmdb("../../token.txt")
 ```
 
 ```{r source, include=FALSE}
@@ -56,7 +56,7 @@ source("dh_tmdb_presentation_code.R", local = knitr::knit_global())
 
 -   Extract media content's genre and recode it into categories
 
-![](screenshot_tmdb.png)
+![](img/screenshot_tmdb.png)
 
 ---
 
@@ -123,4 +123,8 @@ head(rev_budget)
 
 ## Limitations
 
--   Selenium
+- Selenium
+    Our intention was to obtain the top rated movies filtering by year of their release.
+    Unfortunately, we couldn't achieve it... but the code is written!
+    
+- Some functions of the package need to be more complete (like `add_detail()`)
