@@ -95,13 +95,22 @@ bubble_chart
 
 ## Streaming providers
 
-```{r fig.height=6, fig.width=8, message=FALSE, warning=FALSE}
-get_streaming_providers(804150, "movie", "US")
-get_streaming_providers(238, "movie", "US")
-get_streaming_providers(238, "movie", "ES")
-search_tmdb("encanto")
+```{r out.width=6, out.width=8, message=FALSE, warning=FALSE}
+cocaine_bear <- get_streaming_providers(804150, "movie", "AR")
+fall <- get_streaming_providers(985939, "movie", "ES")
+godfather <- get_streaming_providers(238, "movie", "US")
+streaming <- c(cocaine_bear, fall, godfather)
+streaming
 ```
 
+---
+
+## Search
+```{r}
+search_tmdb("all") %>%
+  select(id, title, media_type) %>% 
+  head(10)
+```
 
 ---
 
@@ -128,3 +137,9 @@ head(rev_budget)
     Unfortunately, we couldn't achieve it... but the code is written!
     
 - Some functions of the package need to be more complete (like `add_detail()`)
+
+---
+
+## Thanks for your attention!
+
+Any question, suggestion or comment? Feel free!

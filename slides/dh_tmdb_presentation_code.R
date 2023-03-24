@@ -216,6 +216,6 @@ search_tmdb("encanto")
 
 
 ## ------------------------------------------------------------------------------------------------------------------
-options(knitr.duplicate.label = 'allow')
-purl("dh_tmdb_mario_isabela.Rmd")
+#options(knitr.duplicate.label = 'allow')
+#purl("dh_tmdb_mario_isabela.Rmd")
 
