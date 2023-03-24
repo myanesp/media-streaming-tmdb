@@ -39,7 +39,7 @@ source("dh_tmdb_presentation_code.R", local = knitr::knit_global())
 
 ## Index
 
--   The Movie DataBase
+-   The Movie Database (TMDB)
 
 -   Library `tmdbR`
 
@@ -50,7 +50,7 @@ source("dh_tmdb_presentation_code.R", local = knitr::knit_global())
 ---
 
 
-## The Movie DataBase
+## The Movie Database (TMDB)
 
 -   Extract information on top 20 daily and weekly movies and series
 
@@ -137,6 +137,10 @@ head(rev_budget)
     Unfortunately, we couldn't achieve it... but the code is written!
     
 - Some functions of the package need to be more complete (like `add_detail()`)
+
+---
+
+![](img/summary.jpg)
 
 ---
 
